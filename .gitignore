@@ -17,8 +17,3 @@ htmlcov/
 
 # OS files
 .DS_Store
-
-# Generated outputs (optional)
-outputs/
-reports/*.html
-reports/*.pdf
