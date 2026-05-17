@@ -20,3 +20,5 @@ htmlcov/
 
 # IDE files
 .idea/
+
+reports/classification_report_files/
