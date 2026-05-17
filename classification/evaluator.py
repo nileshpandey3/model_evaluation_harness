@@ -1,6 +1,9 @@
+from sklearn.metrics import confusion_matrix
+
 from classification import model
 from classification.metrics import calculate_metrics
 from classification.train import train_model
+from classification.visualization import save_confusion_matrix
 
 
 def evaluate():
@@ -17,6 +20,14 @@ def evaluate():
         y_test,
         prediction
     )
+
+    confusion_matrix_path = save_confusion_matrix(
+        y_test, prediction
+    )
+    results['artifacts'] = {
+        "confusion_matrix": confusion_matrix_path
+    }
+
     if results["precision"] == 0:
         print(
             "WARNING: One or more classes "

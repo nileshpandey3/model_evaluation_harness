@@ -47,10 +47,10 @@ Evaluation-focused ML/AI project exploring:
 pip install -r requirements.txt
 
 ### Run classification evaluation
-python classification/evaluate.py
+python run_classification.py
 
 ### Run conversational evaluation
-python conversational/runner.py
+python run_conversation.py
 
 ### Launch dashboard
-streamlit run dashboard/app.py
+TODO
