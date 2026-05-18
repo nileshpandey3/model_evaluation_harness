@@ -22,3 +22,5 @@ htmlcov/
 .idea/
 
 reports/classification_report_files/
+
+outputs/conversation_transcript.json

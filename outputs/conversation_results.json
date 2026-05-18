@@ -1,0 +1,13 @@
+{
+  "scenario": "Travel Planning Conversation",
+  "scores": {
+    "goal_completion": true,
+    "constraint_consistency": true,
+    "adversarial_resistance": true
+  },
+  "failure_types": [],
+  "evidence": {
+    "budget_limit": 500,
+    "final_total_cost": 450
+  }
+}
