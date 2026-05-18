@@ -7,3 +7,4 @@ evidently
 nbformat
 nbclient
 ipykernel
+requests

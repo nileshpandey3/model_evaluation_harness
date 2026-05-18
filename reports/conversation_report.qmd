@@ -1,0 +1,105 @@
+---
+title: "Conversational AI Evaluation Report"
+format:
+  html:
+    toc: true
+    code-fold: false
+  pdf: default
+jupyter: model-eval-harness
+---
+
+```{python}
+#| echo: false
+
+import json
+from pathlib import Path
+import pandas as pd
+
+with open(
+    "../outputs/conversation_results.json",
+    "r",
+    encoding="utf-8",
+) as f:
+    results = json.load(f)
+
+with open(
+    "../outputs/conversation_transcript.json",
+    "r",
+    encoding="utf-8",
+) as f:
+    transcript = json.load(f)
+```
+
+# Executive Summary
+
+This report evaluates a multi-turn travel-planning conversation.
+
+# Evaluation Scores
+
+```{python}
+#| echo: false
+
+scores_df = pd.DataFrame(
+    [
+        {
+            "Metric": key.replace("_", " ").title(),
+            "Value": value,
+        }
+        for key, value in results["scores"].items()
+    ]
+)
+
+display(scores_df)
+```
+
+# Failure Types
+
+```{python}
+#| echo: false
+
+if results["failure_types"]:
+    display(
+        pd.DataFrame(
+            {"Failure Type": results["failure_types"]}
+        )
+    )
+else:
+    print("No failures detected.")
+```
+
+# Evidence
+
+```{python}
+#| echo: false
+
+evidence_df = pd.DataFrame(
+    list(results["evidence"].items()),
+    columns=["Field", "Value"],
+)
+
+display(evidence_df)
+```
+
+# Conversation Transcript
+
+```{python}
+#| echo: false
+
+transcript_df = pd.DataFrame(transcript)
+display(transcript_df[["role", "content"]])
+```
+
+# Evidently Diagnostics
+
+A detailed data summary report was generated at:
+
+- `outputs/evidently_conversation_report.html`
+
+# Conclusion
+
+This evaluation demonstrates:
+
+- Session-level scoring
+- Constraint adherence validation
+- Multi-turn consistency analysis
+- Failure taxonomy generation
