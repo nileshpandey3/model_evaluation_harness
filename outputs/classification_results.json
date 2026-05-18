@@ -78,6 +78,9 @@
       "support": 360.0
     }
   },
+  "balanced_accuracy": 0.973,
+  "log_loss": 0.282,
+  "top_3_accuracy": 0.994,
   "artifacts": {
     "confusion_matrix": "outputs/confusion_matrix.png"
   }

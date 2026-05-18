@@ -36,21 +36,17 @@ This report summarizes the performance of a multiclass digit classification mode
 
 import pandas as pd
 
+# Select only top-level numeric metrics.
+# Exclude nested dictionaries such as per_class_report and artifacts.
 metrics_df = pd.DataFrame(
-    {
-        "Metric": [
-            "Accuracy",
-            "Precision",
-            "Recall",
-            "F1 Score",
-        ],
-        "Value": [
-            accuracy,
-            precision,
-            recall,
-            f1,
-        ],
-    }
+    [
+        {
+            "Metric": key.replace("_", " ").title(),
+            "Value": value,
+        }
+        for key, value in results.items()
+        if isinstance(value, (int, float))
+    ]
 )
 
 display(metrics_df)

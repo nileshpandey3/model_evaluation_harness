@@ -1,6 +1,3 @@
-from sklearn.metrics import confusion_matrix
-
-from classification import model
 from classification.metrics import calculate_metrics
 from classification.train import train_model
 from classification.visualization import save_confusion_matrix
@@ -15,10 +12,12 @@ def evaluate():
     model, x_test, y_test = train_model()
 
     prediction = model.predict(x_test)
+    probabilities = model.predict_proba(x_test)
 
     results = calculate_metrics(
         y_test,
-        prediction
+        prediction,
+        probabilities
     )
 
     confusion_matrix_path = save_confusion_matrix(
