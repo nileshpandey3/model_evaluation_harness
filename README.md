@@ -1,4 +1,4 @@
-# Model Evaluation Harness
+# A multi-turn AI evaluation framework for adversarial robustness and conversational quality assessment
 
 A production-style ML and AI evaluation framework for assessing both traditional machine learning models and multi-turn conversational AI systems.
 
