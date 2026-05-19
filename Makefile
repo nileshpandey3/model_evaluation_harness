@@ -16,5 +16,14 @@ conversation-report:
 report:
 	quarto render reports/classification_report.qmd
 
-all: install classification conversation report
+benchmark:
+	python run_benchmark.py
+
+benchmark-report:
+	quarto render reports/benchmark_report.qmd
+
+benchmark-all: benchmark benchmark-report
+
+
 conversation-all: conversation conversation-report
+classification-all: install classification report

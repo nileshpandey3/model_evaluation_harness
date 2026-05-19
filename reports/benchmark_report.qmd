@@ -1,0 +1,76 @@
+---
+title: "Conversational Benchmark Report"
+format:
+  html:
+    toc: true
+  pdf: default
+jupyter: model-eval-harness
+---
+
+```{python}
+#| echo: false
+
+import json
+import pandas as pd
+
+with open(
+    "../outputs/benchmark_results.json",
+    "r",
+    encoding="utf-8",
+) as f:
+    benchmark = json.load(f)
+```
+
+# Executive Summary
+
+This report summarizes performance across multiple conversational evaluation scenarios.
+
+# Benchmark Summary
+
+```{python}
+#| echo: false
+
+summary_df = pd.DataFrame(
+    [benchmark["summary"]]
+)
+
+display(summary_df)
+```
+
+# Scenario Results
+
+```{python}
+#| echo: false
+
+rows = []
+
+for result in benchmark["scenario_results"]:
+    rows.append(
+        {
+            "Scenario": result["scenario"],
+            "Goal Completion": result["scores"]["goal_completion"],
+            "Constraint Consistency": result["scores"]["constraint_consistency"],
+            "Adversarial Resistance": result["scores"]["adversarial_resistance"],
+            "Failures": ", ".join(result["failure_types"]),
+        }
+    )
+
+results_df = pd.DataFrame(rows)
+
+display(results_df)
+```
+
+# Failure Distribution
+
+```{python}
+#| echo: false
+
+failure_counts = {}
+
+for result in benchmark["scenario_results"]:
+    for failure in result["failure_types"]:
+        failure_counts[failure] = (
+            failure_counts.get(failure, 0) + 1
+        )
+
+```

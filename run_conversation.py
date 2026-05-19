@@ -1,11 +1,11 @@
 from conversation.evaluators import evaluate_conversation
 from conversation.runner import run_scenario
-from conversation.scenarios import travel_planning_scenario
+from conversation.scenarios import get_travel_planning_scenario
 from shared.output_writer import write_json
 
 
 def main():
-    scenario = travel_planning_scenario()
+    scenario = get_travel_planning_scenario()
 
     transcript = run_scenario(scenario)
 
