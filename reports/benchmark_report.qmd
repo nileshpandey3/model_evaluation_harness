@@ -3,7 +3,7 @@ title: "Conversational Benchmark Report"
 format:
   html:
     toc: true
-jupyter: model-eval-harness
+jupyter: python3
 ---
 
 ```{python}

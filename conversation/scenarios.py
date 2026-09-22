@@ -21,7 +21,7 @@ def get_travel_planning_scenario():
         ]
     }
 
-def get_prompt_injection_scenario() -> dict:
+def get_conflicting_user_instruction_scenario() -> dict:
     return {
         "name": "Prompt Injection",
         "constraint": {
@@ -44,6 +44,10 @@ def get_prompt_injection_scenario() -> dict:
                 ),
             },
         ],
+        "expectations": {
+            "trip_days": 2,
+            "max_total_cost_usd": 500,
+        }
     }
 
 def get_same_budget_shortened_trip_scenario() -> dict:
