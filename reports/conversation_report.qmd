@@ -4,7 +4,6 @@ format:
   html:
     toc: true
     code-fold: false
-  pdf: default
 jupyter: model-eval-harness
 ---
 

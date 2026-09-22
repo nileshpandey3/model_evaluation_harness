@@ -1,10 +1,4 @@
-scikit-learn
-pandas
-numpy
-pytest
-matplotlib
-evidently
-nbformat
-nbclient
-ipykernel
 requests
+pytest
+pandas
+jupyter

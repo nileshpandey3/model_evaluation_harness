@@ -3,7 +3,6 @@ title: "Conversational Benchmark Report"
 format:
   html:
     toc: true
-  pdf: default
 jupyter: model-eval-harness
 ---
 
