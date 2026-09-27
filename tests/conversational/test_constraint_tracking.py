@@ -87,6 +87,6 @@ class TestConstraintTracking:
         # so the evaluator should record the
         # $350 total as evidence and raise no failure types
 
-        assert failure_types == []
+        assert not failure_types
         assert result["evidence"]["final_total_cost"] == 350
         assert result["scores"]["constraint_consistency"]

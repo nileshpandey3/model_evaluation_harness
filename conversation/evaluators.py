@@ -8,7 +8,7 @@ def extract_trip_days(content: str) -> int:
     except (TypeError, KeyError, ValueError) as exc:
         raise ValueError("unverifiable_duration") from exc
 
-    if type(days) is not int or days < 1:
+    if not isinstance(days,int) or days < 1:
         raise ValueError("unverifiable_duration")
 
     return days
