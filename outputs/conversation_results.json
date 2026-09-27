@@ -1,13 +1,15 @@
 {
   "scenario": "Travel Planning Conversation",
   "scores": {
-    "constraint_consistency": true,
+    "constraint_consistency": null,
     "multi_turn_consistency": true
   },
-  "failure_types": [],
+  "failure_types": [
+    "unverifiable_cost"
+  ],
   "evidence": {
     "budget_limit": 500,
-    "final_total_cost": 250,
+    "final_total_cost": null,
     "expected_trip_days": 1,
     "actual_trip_days": 1
   }

@@ -1,6 +1,5 @@
-# A AI evaluation framework for multi-turn conversational quality assessment
+# An AI evaluation framework for assessing multi-turn conversational AI systems
 
-An AI evaluation framework for assessing multi-turn conversational AI systems.
 
 This project demonstrates:
 
@@ -17,7 +16,7 @@ This project demonstrates:
 model_evaluation_harness/
 ├── conversation/        # Multi-turn conversational AI evaluation
 ├── outputs/             # Generated JSON artifacts
-├── reports/             # Quarto reports (HTML/PDF)
+├── reports/             # Quarto reports (HTML)
 ├── tests/               # Automated tests
 ├── run_conversation.py
 └── Makefile
