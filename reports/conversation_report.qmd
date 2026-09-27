@@ -4,6 +4,7 @@ format:
   html:
     toc: true
     code-fold: false
+    embed-resources: true
 jupyter: python3
 ---
 
@@ -31,11 +32,9 @@ with open(
 
 # Executive Summary
 
-This report evaluates a multi-turn travel-planning conversation.
+This report evaluates a multi-turn travel-planning conversation with Gemma3 LLM.
 
 # Evaluation Scores
-
-Constraint consistency checks whether the model’s listed costs sum to no more than the scenario budget.
 
 ```{python}
 #| echo: false
@@ -94,5 +93,5 @@ display(transcript_df[["role", "content"]])
 
 This evaluation demonstrates:
 
-- Constraint adherence validation: checks the final response's stated cost total against the original budget.
-- Multi-turn instruction consistency: checks whether the final `trip_days` value reflects the user's requested change; a runner test verifies that prior turns are supplied to the model.
+- **Constraint adherence validation**: checks the final response's stated cost total against the original budget.
+- **Multi-turn instruction consistency**: checks whether the final `trip_days` value reflects the user's requested change; a runner test verifies that prior turns are supplied to the model.

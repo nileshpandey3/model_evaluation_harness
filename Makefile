@@ -10,12 +10,4 @@ conversation:
 conversation-report:
 	quarto render reports/conversation_report.qmd
 
-benchmark:
-	python run_benchmark.py
-
-benchmark-report:
-	quarto render reports/benchmark_report.qmd
-
-benchmark-all: benchmark benchmark-report
-
 conversation-all: conversation conversation-report
