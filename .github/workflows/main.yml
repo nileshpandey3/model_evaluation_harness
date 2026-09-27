@@ -1,4 +1,4 @@
-name: Run Pylint and Python Tests 
+name: Run Pylint, Python Tests and Migrations
 
 on:
   push:
@@ -6,21 +6,28 @@ on:
   pull_request:
     branches: [ "main" ]
     types: [opened, synchronize, reopened]
-jobs:
-  build:
 
+jobs:
+  ci_pipeline:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v5
+
       - name: Set up Python
-        # This is the version of the action for setting up Python, not the Python version.
         uses: actions/setup-python@v5
         with:
-          # Semantic version range syntax or exact version of a Python version
-          python-version: '3.x'
-          # Optional - x64 or x86 architecture, defaults to x64
-          architecture: 'x64'
-      # You can test your matrix by printing the current Python version
-      - name: Display Python version
-        run: python -c "import sys; print(sys.version)"
+          python-version: '3.12'
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run Linting check
+        run: |
+          pylint $(git ls-files '*.py')  
+
+      - name: Run Python Tests
+        run: |
+          pytest -s

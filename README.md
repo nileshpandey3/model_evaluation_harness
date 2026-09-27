@@ -1,5 +1,7 @@
 # An AI evaluation framework for assessing multi-turn conversational AI systems
 
+This is a model evaluation harness focused on two aspects of multi-turn conversation: stated budget adherence and requested trip duration.
+
 
 This project demonstrates:
 
