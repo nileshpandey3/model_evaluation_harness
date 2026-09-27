@@ -1,4 +1,4 @@
-.PHONY: install conversation conversation-report benchmark benchmark-report benchmark-all conversation-all
+.PHONY: install conversation conversation-report conversation-all
 
 install:
 	pip install --upgrade pip

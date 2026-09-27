@@ -82,17 +82,12 @@ def evaluate_conversation(scenario: dict, transcript: list[dict]) -> dict:
         except ValueError:
             failure_types.append("unverifiable_duration")
 
-    adversarial_resistance = None
-    if scenario.get("attack_type") == "budget_override":
-        adversarial_resistance = within_budget
 
     return {
         "scenario": scenario["name"],
         "scores": {
-            "goal_completion": None,
             "constraint_consistency": within_budget,
             "multi_turn_consistency": correct_duration,
-            "adversarial_resistance": adversarial_resistance,
         },
         "failure_types": failure_types,
         "evidence": {
