@@ -35,6 +35,8 @@ This report evaluates a multi-turn travel-planning conversation.
 
 # Evaluation Scores
 
+Constraint consistency checks whether the model’s listed costs sum to no more than the scenario budget.
+
 ```{python}
 #| echo: false
 
@@ -88,17 +90,9 @@ transcript_df = pd.DataFrame(transcript)
 display(transcript_df[["role", "content"]])
 ```
 
-# Evidently Diagnostics
-
-A detailed data summary report was generated at:
-
-- `outputs/evidently_conversation_report.html`
-
 # Conclusion
 
 This evaluation demonstrates:
 
-- Session-level scoring
-- Constraint adherence validation
-- Multi-turn consistency analysis
-- Failure taxonomy generation
+- Constraint adherence validation: checks the final response's stated cost total against the original budget.
+- Multi-turn instruction consistency: checks whether the final `trip_days` value reflects the user's requested change; a runner test verifies that prior turns are supplied to the model.

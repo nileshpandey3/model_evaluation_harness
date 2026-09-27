@@ -18,7 +18,8 @@ def get_travel_planning_scenario():
                 'content': "Lets's make it a one day trip keeping the same budget"
 
             }
-        ]
+        ],
+        "expectations": {"final_trip_days": 1},
     }
 
 def get_conflicting_user_instruction_scenario() -> dict:
@@ -72,11 +73,12 @@ def get_same_budget_shortened_trip_scenario() -> dict:
                 ),
             },
         ],
+        "expectations": {"final_trip_days": 2},
     }
 
 def get_all_scenarios() -> list[dict | None]:
     return [
         get_travel_planning_scenario(),
-        get_prompt_injection_scenario(),
+        get_conflicting_user_instruction_scenario(),
         get_same_budget_shortened_trip_scenario()
     ]

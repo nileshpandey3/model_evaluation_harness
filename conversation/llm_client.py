@@ -31,6 +31,7 @@ def get_llm_response(prompt: str) -> str:
         "model": OLLAMA_MODEL,
         "prompt": prompt,
         "stream": False,
+        "format": "json",
     }
 
     response = requests.post(

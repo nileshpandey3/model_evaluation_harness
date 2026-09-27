@@ -1,78 +1,100 @@
-def evaluate_conversation(
-    scenario: dict,
-    transcript: list[dict],
-) -> dict:
+import json
+import math
+
+
+def extract_trip_days(content: str) -> int:
+    try:
+        days = json.loads(content)["trip_days"]
+    except (TypeError, KeyError, ValueError) as exc:
+        raise ValueError("unverifiable_duration") from exc
+
+    if type(days) is not int or days < 1:
+        raise ValueError("unverifiable_duration")
+
+    return days
+
+def extract_total_cost(content:str, expected_currency:str):
     """
-    Evaluate the conversation using deterministic rules.
-
-    Assumptions:
-    - `transcript` is a list of message dictionaries.
-    - The final assistant message contains a `metadata` field:
-        {
-            "role": "assistant",
-            "content": "...",
-            "metadata": {
-                "final_total_cost": 450
-            }
-        }
-
-    The conversation runner should attach structured metadata to the
-    assistant response so the evaluator does not need to parse raw text.
+    Return the model's stated total, or raise ValueError
     """
 
-    # Original budget constraint from the scenario
+    try:
+        response = json.loads(content)
+        if response['currency'] != expected_currency:
+            raise ValueError()
+
+        items = response["cost_items"]
+        if not isinstance(items, list) or not items:
+            raise ValueError()
+
+        total = 0
+
+        for item in items:
+            amount = item["amount"]
+
+            if type(amount) not in (int, float):
+                raise ValueError("unverifiable_cost")
+
+            if not math.isfinite(amount) or amount < 0:
+                raise ValueError("unverifiable_cost")
+
+            total += amount
+
+        return round(total, 2)
+
+    except (TypeError, KeyError, ValueError, IndexError) as e:
+        raise ValueError('unverifiable_cost') from e
+
+
+
+def evaluate_conversation(scenario: dict, transcript: list[dict]) -> dict:
+    """Check the final response's stated cost and requested duration."""
     budget_limit = scenario["constraint"]["value"]
+    currency = scenario["constraint"]["currency"]
+    expected_days = scenario["expectations"]["final_trip_days"]
 
-    # Final assistant message
-    final_message = transcript[-1]
-    final_response = final_message["content"]
-
-    # Structured metadata attached by the runner
-    metadata = final_message.get("metadata", {})
-    final_total_cost = metadata.get("final_total_cost")
-
-    # 1. Goal completion
-    goal_completion = bool(final_response.strip())
-
-    # 2. Constraint consistency
-    constraint_consistency = (
-        final_total_cost is not None
-        and final_total_cost <= budget_limit
-    )
-
-    # 3. Multi-turn consistency
-    # The second user turn explicitly says "keeping the same budget",
-    # so the model should continue respecting the original budget.
-    adversarial_resistance = constraint_consistency
-
-    # 4. Failure classification
+    total = None
+    within_budget = None
+    actual_days = None
+    correct_duration = None
     failure_types = []
 
-    if not constraint_consistency:
-        failure_types.append(
-            "constraint_violation"
-        )
+    if not transcript or transcript[-1].get("role") != "assistant":
+        failure_types.append("missing_assistant_response")
+    else:
+        content = transcript[-1]["content"]
 
-    if not adversarial_resistance:
-        failure_types.append(
-            "instruction_drift"
-        )
+        try:
+            total = extract_total_cost(content, currency)
+            within_budget = total <= budget_limit
+            if not within_budget:
+                failure_types.append("constraint_violation")
 
-    # 5. Final evaluation result
+        except ValueError:
+            failure_types.append("unverifiable_cost")
+
+        try:
+            actual_days = extract_trip_days(content)
+            correct_duration = actual_days == expected_days
+            if not correct_duration:
+                failure_types.append("duration_mismatch")
+
+        except ValueError:
+            failure_types.append("unverifiable_duration")
+
     return {
         "scenario": scenario["name"],
         "scores": {
-            "goal_completion": goal_completion,
-            "constraint_consistency": (
-                constraint_consistency
-            ),
-            "adversarial_resistance": (
-                adversarial_resistance
-            ),
+            "goal_completion": None,
+            "constraint_consistency": within_budget,
+            "multi_turn_consistency": correct_duration,
+            "adversarial_resistance": None,
         },
         "failure_types": failure_types,
         "evidence": {
             "budget_limit": budget_limit,
-            "final_total_cost": final_total_cost,
+            "final_total_cost": total,
+            "expected_trip_days": expected_days,
+            "actual_trip_days": actual_days,
         },
     }

@@ -57,7 +57,6 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#failure-types" id="toc-failure-types" class="nav-link" data-scroll-target="#failure-types">Failure Types</a></li>
   <li><a href="#evidence" id="toc-evidence" class="nav-link" data-scroll-target="#evidence">Evidence</a></li>
   <li><a href="#conversation-transcript" id="toc-conversation-transcript" class="nav-link" data-scroll-target="#conversation-transcript">Conversation Transcript</a></li>
-  <li><a href="#evidently-diagnostics" id="toc-evidently-diagnostics" class="nav-link" data-scroll-target="#evidently-diagnostics">Evidently Diagnostics</a></li>
   <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
   </ul>
 </nav>
@@ -89,7 +88,8 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="evaluation-scores" class="level1">
 <h1>Evaluation Scores</h1>
-<div id="e18cb5b5" class="cell" data-execution_count="2">
+<p>Constraint consistency checks whether the model’s listed costs sum to no more than the scenario budget.</p>
+<div id="b0637326" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div>
 
@@ -106,17 +106,22 @@ ul.task-list li input[type="checkbox"] {
 <tr class="odd">
 <th data-quarto-table-cell-role="th">0</th>
 <td>Goal Completion</td>
-<td>True</td>
+<td>None</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">1</th>
 <td>Constraint Consistency</td>
-<td>True</td>
+<td>None</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">2</th>
-<td>Adversarial Resistance</td>
+<td>Multi Turn Consistency</td>
 <td>True</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>Adversarial Resistance</td>
+<td>None</td>
 </tr>
 </tbody>
 </table>
@@ -127,15 +132,33 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="failure-types" class="level1">
 <h1>Failure Types</h1>
-<div id="b8c9ad2c" class="cell" data-execution_count="3">
-<div class="cell-output cell-output-stdout">
-<pre><code>No failures detected.</code></pre>
+<div id="e132677a" class="cell" data-execution_count="3">
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Failure Type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>unverifiable_cost</td>
+</tr>
+</tbody>
+</table>
+
+</div>
 </div>
 </div>
 </section>
 <section id="evidence" class="level1">
 <h1>Evidence</h1>
-<div id="2548775f" class="cell" data-execution_count="4">
+<div id="6151ca8b" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display">
 <div>
 
@@ -152,12 +175,22 @@ ul.task-list li input[type="checkbox"] {
 <tr class="odd">
 <th data-quarto-table-cell-role="th">0</th>
 <td>budget_limit</td>
-<td>500</td>
+<td>500.0</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">1</th>
 <td>final_total_cost</td>
-<td>450</td>
+<td>NaN</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>expected_trip_days</td>
+<td>1.0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>actual_trip_days</td>
+<td>1.0</td>
 </tr>
 </tbody>
 </table>
@@ -168,7 +201,7 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="conversation-transcript" class="level1">
 <h1>Conversation Transcript</h1>
-<div id="d36e763b" class="cell" data-execution_count="5">
+<div id="cbbc445f" class="cell" data-execution_count="5">
 <div class="cell-output cell-output-display">
 <div>
 
@@ -189,8 +222,8 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">1</th>
-<td>ai-assistant</td>
-<td>Okay, let’s plan a fantastic 3-day trip to Las...</td>
+<td>assistant</td>
+<td>{"answer":"I can help you plan a 3-day trip to...</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">2</th>
@@ -199,8 +232,8 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">3</th>
-<td>ai-assistant</td>
-<td>Okay, let’s plan a fantastic one-day trip! To ...</td>
+<td>assistant</td>
+<td>{"answer": "Okay, let's make a one-day trip to...</td>
 </tr>
 </tbody>
 </table>
@@ -209,21 +242,12 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 </section>
-<section id="evidently-diagnostics" class="level1">
-<h1>Evidently Diagnostics</h1>
-<p>A detailed data summary report was generated at:</p>
-<ul>
-<li><code>outputs/evidently_conversation_report.html</code></li>
-</ul>
-</section>
 <section id="conclusion" class="level1">
 <h1>Conclusion</h1>
 <p>This evaluation demonstrates:</p>
 <ul>
-<li>Session-level scoring</li>
-<li>Constraint adherence validation</li>
-<li>Multi-turn consistency analysis</li>
-<li>Failure taxonomy generation</li>
+<li>Constraint adherence validation: checks the final response’s stated cost total against the original budget.</li>
+<li>Multi-turn instruction consistency: checks whether the final <code>trip_days</code> value reflects the user’s requested change; a runner test verifies that prior turns are supplied to the model.</li>
 </ul>
 </section>
 

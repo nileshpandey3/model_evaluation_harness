@@ -8,6 +8,7 @@ def main():
     scenario = get_travel_planning_scenario()
 
     transcript = run_scenario(scenario)
+    print(repr(transcript[-1]["content"]))
 
     results = evaluate_conversation(
         scenario,
