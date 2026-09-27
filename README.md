@@ -1,4 +1,4 @@
-# A multi-turn AI evaluation framework for adversarial robustness and conversational quality assessment
+# A AI evaluation framework for multi-turn conversational quality assessment
 
 An AI evaluation framework for assessing multi-turn conversational AI systems.
 
