@@ -3,3 +3,4 @@ pytest
 pandas
 jupyter
 pylint
+evidently
