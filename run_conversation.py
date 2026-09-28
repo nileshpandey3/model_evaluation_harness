@@ -5,10 +5,14 @@ from shared.output_writer import write_json
 
 
 def main():
+    """
+    Entry point for the live LLM evaluation:
+    it runs the scenario, scores the model’s response,
+    and writes the two JSON files that the Quarto report reads
+    """
     scenario = get_travel_planning_scenario()
 
     transcript = run_scenario(scenario)
-    print(repr(transcript[-1]["content"]))
 
     results = evaluate_conversation(
         scenario,

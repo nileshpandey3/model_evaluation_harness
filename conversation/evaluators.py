@@ -1,3 +1,8 @@
+"""
+Evaluate the final assistant response in a travel-planning conversation
+Parse the response's stated cost items and trip duration, compare them with
+the scenario's budget and expected duration, and return scores with supporting evidence
+"""
 import json
 import math
 

@@ -1,3 +1,8 @@
+"""
+Module to help run conversational scenarios and return a response transcript
+can be used with both live LLM response and hardcoded deterministic responses
+"""
+
 from conversation.llm_client import get_llm_response
 
 def build_prompt(scenario:dict, transcript:list[dict])->str:

@@ -1,7 +1,9 @@
+import pytest
+
 from conversation.runner import run_scenario
 from conversation.scenarios import get_travel_planning_scenario
 
-
+@pytest.mark.second_turn_receives_history
 def test_second_turn_receives_history():
     scenario = get_travel_planning_scenario()
     received_inputs = []
