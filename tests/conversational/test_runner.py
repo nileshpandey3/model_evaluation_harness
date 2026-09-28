@@ -5,6 +5,11 @@ from conversation.scenarios import get_travel_planning_scenario
 
 @pytest.mark.second_turn_receives_history
 def test_second_turn_receives_history():
+    """
+    Test that the conversation runner preserves history across user turns
+    Use a controlled model response to verify that the second prompt includes
+    the first request and response, and that the transcript records both turns.
+    """
     scenario = get_travel_planning_scenario()
     received_inputs = []
     responses = iter(["first_response", "second_response"])
@@ -26,4 +31,4 @@ def test_second_turn_receives_history():
     assert "first_response" in received_inputs[1]
 
     # Verify that transcript has no invented cost
-    assert all("metadat" not in message for message in transcript)
+    assert all("metadata" not in message for message in transcript)

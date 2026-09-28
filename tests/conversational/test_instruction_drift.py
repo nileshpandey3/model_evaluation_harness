@@ -8,7 +8,7 @@ from conversation.scenarios import get_travel_planning_scenario
 @pytest.mark.instruction_drift
 class TestInstructionDrift:
 
-    def test_multi_turn_consistency_pass(self):
+    def test_multi_turn_consistency(self):
         scenario = get_travel_planning_scenario()
         response = {
             "answer": "Here is your trip",

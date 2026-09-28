@@ -53,7 +53,11 @@ def extract_total_cost(content:str, expected_currency:str):
 
 
 def evaluate_conversation(scenario: dict, transcript: list[dict]) -> dict:
-    """Check the final response's stated cost and requested duration."""
+    """
+    Check the final response's stated cost and requested duration
+    Add the response's stated costs and compare the total with the scenario budget
+    Check whether its trip_days matches the expected final duration
+    """
     budget_limit = scenario["constraint"]["value"]
     currency = scenario["constraint"]["currency"]
     expected_days = scenario["expectations"]["final_trip_days"]
